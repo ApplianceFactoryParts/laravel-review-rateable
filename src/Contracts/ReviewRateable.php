@@ -20,61 +20,9 @@ interface ReviewRateable
 
     /**
      *
-     * @param $round
-     * @return double
-     */
-    public function averageCustomerServiceRating($round = null);
-
-    /**
-     *
-     * @param $round
-     * @return double
-     */
-    public function averageQualityRating($round = null);
-
-    /**
-     *
-     * @param $round
-     * @return double
-     */
-    public function averageFriendlyRating($round = null);
-
-    /**
-     *
-     * @param $round
-     * @return double
-     */
-    public function averagePricingRating($round = null);
-
-    /**
-     *
      * @return int
      */
     public function countRating();
-
-    /**
-     *
-     * @return int
-     */
-    public function countCustomerServiceRating();
-
-    /**
-     *
-     * @return int
-     */
-    public function countQualityRating();
-
-    /**
-     *
-     * @return int
-     */
-    public function countFriendlyRating();
-
-    /**
-     *
-     * @return int
-     */
-    public function countPriceRating();
 
     /**
      *

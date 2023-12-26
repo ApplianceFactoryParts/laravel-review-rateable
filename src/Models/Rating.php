@@ -4,6 +4,7 @@ namespace Codebyray\ReviewRateable\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Rating extends Model
 {
@@ -87,6 +88,7 @@ class Rating extends Model
     {
         $rating = $this->select('*')
             ->where('reviewrateable_id', $id)
+            ->where('deleted', false)
             ->orderBy('created_at', $sort)
             ->get();
 
@@ -101,11 +103,17 @@ class Rating extends Model
      */
     public function getApprovedRatings($id, $sort = 'desc')
     {
-        $rating = $this->select('*')
+        $rating = $this->select('id', 'rating', 'title', 'body', 'author_id', 'created_at')
             ->where('reviewrateable_id', $id)
-            ->where('approved', true)
+            ->where('approved', 1)
+            ->where('deleted', 0)
             ->orderBy('created_at', $sort)
             ->get();
+
+        $rating->each(function ($item) {
+            $item->author_name = DB::table('user_reviewer')->where('id', $item->author_id)->first('reviewer_name')->reviewer_name;
+            $item->images = DB::table('review_images')->where('review_id', $item->id)->get('image');
+        });
 
         return $rating;
     }
@@ -139,6 +147,7 @@ class Rating extends Model
         $rating = $this->select('*')
             ->where('reviewrateable_id', $id)
             ->where('approved', true)
+            ->where('deleted', false)
             ->orderBy('created_at', $sort)
             ->limit($limit)
             ->get();
@@ -159,6 +168,7 @@ class Rating extends Model
         $rating = $this->select('*')
             ->where('author_id', $id)
             ->where('approved', $approved)
+            ->where('deleted', false)
             ->orderBy('created_at', $sort)
             ->limit($limit)
             ->get();
