@@ -51,7 +51,7 @@ trait ReviewRateable
             $avgExpression = 'AVG(rating) as averageRating';
         }
 
-        return DB::table('reviews')
+        return DB::connection('afpcart')->table('product_reviews')
             ->where('approved', 1)
             ->where('deleted', 0)
             ->where('reviewrateable_id', $partId)
@@ -61,7 +61,7 @@ trait ReviewRateable
 
     public function sumPartRating($partId)
     {
-        return DB::table('reviews')
+        return DB::connection('afpcart')->table('product_reviews')
             ->where('approved', 1)
             ->where('deleted', 0)
             ->where('reviewrateable_id', $partId)

@@ -11,7 +11,8 @@ class Rating extends Model
     /**
      * @var string
      */
-    protected $table = 'reviews';
+    protected $table = 'product_reviews';
+    protected $connection = 'afpcart';
 
     /**
      * @var string
@@ -111,8 +112,8 @@ class Rating extends Model
             ->get();
 
         $rating->each(function ($item) {
-            $item->author_name = DB::table('user_reviewer')->where('id', $item->author_id)->first('reviewer_name')->reviewer_name;
-            $item->images = DB::table('review_images')->where('review_id', $item->id)->get('image');
+            $item->author_name = DB::connection('afpcart')->table('user_reviewer')->where('id', $item->author_id)->first('reviewer_name')->reviewer_name;
+            $item->images = DB::connection('afpcart')->table('product_review_images')->where('product_review_id', $item->id)->get('image');
         });
 
         return $rating;
