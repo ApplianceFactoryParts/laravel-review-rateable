@@ -17,7 +17,7 @@ class CreateReviewsTable extends Migration
             $table->enum('recommend', ['Yes', 'No']);
             $table->enum('department', ['Sales', 'Service', 'Parts']);
             $table->string('title');
-            $table->string('body');
+            $table->string('text');
             $table->boolean('approved')->default(0);
             $table->morphs('reviewrateable');
             $table->morphs('author');

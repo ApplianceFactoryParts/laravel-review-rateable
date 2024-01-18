@@ -104,7 +104,7 @@ class Rating extends Model
      */
     public function getApprovedRatings($id, $sort = 'desc')
     {
-        $rating = $this->select('id', 'rating', 'title', 'body', 'author_id', 'created_at')
+        $rating = $this->select('id', 'rating', 'title', 'text', 'author_id', 'created_at')
             ->where('reviewrateable_id', $id)
             ->where('approved', 1)
             ->where('deleted', 0)
